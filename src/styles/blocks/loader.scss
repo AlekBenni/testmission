@@ -1,0 +1,19 @@
+.loader-wrapper{
+    position: relative;
+    width: 100wh;
+    height: 80vh;
+
+    .loader{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        transform: translate(-50%, -50%);
+        background-image: url("../../assets/images/loader.gif");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 100;
+    }
+}

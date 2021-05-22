@@ -1,0 +1,42 @@
+.table{
+    border-collapse: collapse;
+    width: 100%;
+
+    .sort-element {
+        cursor: pointer;
+        background-color: #787878;
+        border: 1px solid #787878;
+        span{
+            font-size: 20px;
+        }
+        .downSort{
+            transform: rotate(-180deg);
+        }
+    }
+
+    .table-arrow{
+        width: 15px;
+        height: 15px;
+    }
+
+    th{
+        background-color: #1E1E1E;
+        color: white;
+        border: 1px solid #1E1E1E;
+        padding: 10px;
+    }
+
+    thead tr{
+        cursor: default;
+    }
+
+    tr{
+        text-align: center;
+        cursor: pointer;
+    }
+
+    td{
+        border: 1px solid #1E1E1E;
+        padding: 5px;
+    }
+}

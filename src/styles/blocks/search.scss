@@ -1,0 +1,17 @@
+.search-wrapper{
+    display: flex;
+
+    input{
+        padding: 10px;
+        flex-basis: 70%;
+        outline: none;
+    }
+
+    button{
+        padding: 10px;
+        flex-basis: 30%;
+        background-color: #1E1E1E;
+        color: white;
+        border: none;
+    }
+}
