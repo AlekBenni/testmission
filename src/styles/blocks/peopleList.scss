@@ -8,6 +8,16 @@
 
     .modal-block{
         flex-basis: 50%;
+        text-align: right;
+
+        button{
+            background-color: #008AD3;
+            height: 100%;
+            padding: 0 25px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
     }
 }
 

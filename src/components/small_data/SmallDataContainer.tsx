@@ -2,6 +2,7 @@ import React from 'react'
 import SmallData from './SmallData'
 import {useSelector} from 'react-redux'
 import { RootStateType } from '../../redux/store'
+import { SmallDataType } from '../../redux/smallDataReducer'
 
 function SmallDataContainer() {
     //@ts-ignore

@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
-
+import {useSelector, useDispatch} from 'react-redux'
+import { changeActivePageAC } from '../redux/serviceReducer'
+import { RootStateType } from '../redux/store'
 
 type PropsType = {
     postPerPage: number
@@ -8,8 +10,8 @@ type PropsType = {
 }
 
 function Pagination(props: PropsType) {
-
-    const [activePage, setActivePage] = useState(0)
+    const dispatch = useDispatch()
+    const activePage = useSelector((state:RootStateType) => state.service.activePage)
 
     const {postPerPage, total, paginate} = props
 
@@ -21,7 +23,7 @@ function Pagination(props: PropsType) {
 
     const btnHandler = (page:number, index:number) => {
         paginate(page)
-        setActivePage(index)
+        dispatch(changeActivePageAC(index))
     }
 
     return (

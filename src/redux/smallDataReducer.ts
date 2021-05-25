@@ -1,6 +1,6 @@
 
 const initState:InitStateType = {
-    smallData: []
+    smallData: [],
 }
 
 type InitStateType = {
@@ -30,6 +30,12 @@ export const smallDataReducer = (state:InitStateType = initState, action:ActionT
         case 'GET_SMALL_DATA':{
             return {...state, smallData : action.data}
         }
+        case 'SET_PEOPLE':{
+            let stateCopy = {...state}
+            stateCopy.smallData = [...stateCopy.smallData]
+            stateCopy.smallData.unshift(action.newData)
+            return stateCopy
+        }
         default: return state
     }
 }
@@ -37,4 +43,7 @@ export const smallDataReducer = (state:InitStateType = initState, action:ActionT
 export const getSmallDataAC = (data:SmallDataType) => ({type:'GET_SMALL_DATA', data})
 type GetSmallDataType = ReturnType<typeof getSmallDataAC>
 
-type ActionType = GetSmallDataType
+export const setPeopleAC = (newData:SmallDataType) => ({type:'SET_PEOPLE', newData})
+type SetPeopleType = ReturnType<typeof setPeopleAC>
+
+type ActionType = GetSmallDataType & SetPeopleType

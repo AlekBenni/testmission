@@ -8,6 +8,11 @@ type PropsType = {
 function Search(props:PropsType) {
     const [value, setValue] = useState('')
 
+    const deleteSearch = () => {
+        props.searchData('')
+        setValue('')
+    }
+
     return (
         <div className="search-wrapper">
             <input type="text"
@@ -16,6 +21,9 @@ function Search(props:PropsType) {
             <button
             onClick={() => props.searchData(value)}
             >Search</button>
+            <button
+            className="search-remove__btn" onClick={() => deleteSearch()}
+            >Remove</button>
         </div>
     )
 }

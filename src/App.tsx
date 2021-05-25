@@ -5,13 +5,16 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Choose from './components/Choose';
 import { getSmallDataTC } from './api/smallDataActions';
 import {useDispatch} from 'react-redux'
+import { getBigDataTC } from './api/bigDataActions';
 
 function App() {
   const dispatch = useDispatch()
   
   useEffect(() => {
+    dispatch(getBigDataTC())
     dispatch(getSmallDataTC())
-  })
+  },[])
+
   return (
     <BrowserRouter>
       <div>

@@ -2,12 +2,12 @@ import React from 'react'
 import { SmallDataType } from '../redux/smallDataReducer'
 
 type PropsType = {
-    peopleId: number
+    peopleMail: string
     data: Array<SmallDataType>
 }
 
 function PeopleInfoLittle(props:PropsType) {
-    let people = props.data.filter(item => item.id === props.peopleId)
+    let people = props.data.filter(item => item.email === props.peopleMail)
     const resultPeople = people.map((item:SmallDataType, index:number) => {
         return(
             <div className="people-info-little" key={index}>

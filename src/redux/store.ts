@@ -2,9 +2,11 @@ import { serviceReducer } from './serviceReducer';
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import { smallDataReducer } from './smallDataReducer'
+import { bigDataReducer } from './bigDataReducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     smallData: smallDataReducer,
+    bigData: bigDataReducer,
     service: serviceReducer
 })
 

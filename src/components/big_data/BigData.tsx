@@ -1,61 +1,53 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react'
-import { SmallDataType } from '../../redux/smallDataReducer'
-import arrow from '../../assets/images/aa.png'
-import PeopleInfoLittle from '../PeopleInfoLittle'
-import Pagination from '../Pagination'
-import Search from '../Search'
+import React, {useEffect, useState, useRef, useCallback} from 'react'
+import { BigDataType } from '../../redux/bigDataReducer'
 import ModalData from '../ModalData'
+import Pagination from '../Pagination'
+import PeopleInfoLittle from '../PeopleInfoLittle'
+import Search from '../Search'
+import arrow from '../../assets/images/aa.png'
 import {useDispatch} from 'react-redux'
-import { setPeopleTC } from '../../api/smallDataActions'
-import { changeActivePageAC } from '../../redux/serviceReducer'
+import {setPeopleBigTC} from '../../api/bigDataActions'
 
 type PropsType = {
-    data: Array<SmallDataType>
+    data: Array<BigDataType>
 }
 
-function SmallData(props:PropsType) {
-    const [result, setResult] = useState(props.data)
+function BigData(props:PropsType) {
+    let result = props.data
     const [flag, setFlag] = useState(true)
     const [arrowStyle, setArrowStyle] = useState('')
     const [peopleMail, setPeopleMail] = useState('')
-    const sortable = useRef()
+    const sortableBig = useRef()
     const dispatch = useDispatch()
 
     const sortDataUp = useCallback(() => {
         setArrowStyle('downSort')
-        let sortArray = result.sort((a, b) => a.id < b.id ? -1 : 1)
-        setResult([...sortArray])
+        result.sort((a, b) => a.id < b.id ? -1 : 1)
         setFlag(false)
     },[result])
 
     const sortDataDown = useCallback(() => {
         setArrowStyle('')
-        let sortArray = result.sort((a, b) => a.id > b.id ? -1 : 1)
-        setResult([...sortArray])
+        result.sort((a, b) => a.id > b.id ? -1 : 1)
         setFlag(true)
     },[result])
 
-    const [filter, setFilter] = useState('')
+    const [filter, setFilter] = useState("")
 
     const searchData = (value:string) => {
         setFilter(value)
         setCurrentPage(1)
     }
 
-    const setPeople = (email:string) => {
-        setPeopleMail(email)
-        dispatch(changeActivePageAC(0))
-    }
-
-    const resultData = result.filter((item:SmallDataType) => 
+    const resultData = result.filter((item:BigDataType) => 
     {if(filter === ''){return result} else if(item.firstName === filter){return item.firstName === filter }
     else if(item.lastName === filter){return item.lastName === filter }
     else if(item.email === filter){return item.email === filter }
     else if(item.phone === filter){return item.phone === filter }
     })
-        .map((item:SmallDataType, index:number) => {
+        .map((item:BigDataType, index:number) => {
                 return (
-                <tr key={index} onClick={(e:any) => setPeople(`${item.email}`)}>
+                <tr key={index} onClick={(e:any) => setPeopleMail(`${item.email}`)}>
                     <td>{item.id}</td>
                     <td>{item.firstName}</td>
                     <td>{item.lastName}</td>
@@ -66,14 +58,14 @@ function SmallData(props:PropsType) {
     })
     
     useEffect(() => {
-        document.body.addEventListener('click', clickOnElement);
+        document.body.addEventListener('click', clickElement);
         return () => {
-            document.body.removeEventListener('click', clickOnElement)
+            document.body.removeEventListener('click', clickElement)
         }
-    }, [flag])
+    }, [flag, result])
 
-    const clickOnElement = (event:any) => {
-        if(event.path.includes(sortable.current)) {
+    const clickElement = (event:any) => {
+        if(event.path.includes(sortableBig.current)) {
             if(flag) {
                 sortDataUp()
             }else{
@@ -82,7 +74,7 @@ function SmallData(props:PropsType) {
         }
     }
 
-    let postPerPage = 10
+    let postPerPage = 50
     let [currentPage, setCurrentPage] = useState(1)
     let lastIndex = currentPage * postPerPage
     let firstIndex = lastIndex - postPerPage
@@ -101,15 +93,15 @@ function SmallData(props:PropsType) {
         setModalOpen(false)
     }
 
-    const sendSmallData = (id:number, firstName:string, lastName:string, email:string, phone:string, address:{ streetAddress: string, city: string, state: string, zip: string}, description:string) => {
-        dispatch(setPeopleTC(id, firstName, lastName, email, phone, address, description ))
+    const sendBigData = (id:number, firstName:string, lastName:string, email:string, phone:string, address:{ streetAddress: string, city: string, state: string, zip: string}, description:string) => {
+        dispatch(setPeopleBigTC(id, firstName, lastName, email, phone, address, description ))
     }
-
+    
     return (
         <div>
             {modalOpen && <ModalData 
             closeModal={closeModal}
-            sendData={sendSmallData}
+            sendData={sendBigData}
             />}
             
         <div className="wrap">
@@ -128,7 +120,7 @@ function SmallData(props:PropsType) {
                 <tr>
                     <th 
                     //@ts-ignore
-                    ref={sortable}
+                    ref={sortableBig}
                     className="sort-element"> <span>id</span>  <img src={arrow} className={`table-arrow ${arrowStyle}`} alt="" /> </th>
                     <th>firstName</th>
                     <th>lastName</th>
@@ -147,4 +139,4 @@ function SmallData(props:PropsType) {
     )
 }
 
-export default React.memo(SmallData)
+export default React.memo(BigData)

@@ -1,15 +1,15 @@
-import { getSmallDataAC, setPeopleAC } from './../redux/smallDataReducer';
 import axios from 'axios'
 import {Dispatch} from 'redux'
+import { getBigDataAC, setPeopleBigAC } from '../redux/bigDataReducer';
 import { loaderAC } from '../redux/serviceReducer';
 
-const baseUrl = "http://localhost:5000/small"
+const baseUrl = "http://localhost:5000/big"
 
-export const getSmallDataTC = () => (dispatch:Dispatch) => {
+export const getBigDataTC = () => (dispatch:Dispatch) => {
     dispatch(loaderAC(true))
     axios.get(`${baseUrl}`)
     .then((response) => {
-        dispatch(getSmallDataAC(response.data))
+        dispatch(getBigDataAC(response.data))
     }).catch((error) => {
         console.log(error.message)
     }).finally(() => {
@@ -17,16 +17,16 @@ export const getSmallDataTC = () => (dispatch:Dispatch) => {
     })
 }
 
-export const setPeopleTC = (
+export const setPeopleBigTC = (
     id:number, firstName: string, lastName: string, email: string, phone: string,
     address:{ streetAddress: string, city: string, state: string, zip: string  }, description: string
 ) => (dispatch:Dispatch) => {
     dispatch(loaderAC(true))
     axios.post(`${baseUrl}`, {
-        id, firstName, lastName, email, phone, address, description
+        id, firstName, lastName, email, phone, description, address
     })
     .then((response) => {
-        dispatch(setPeopleAC(response.data))
+        dispatch(setPeopleBigAC(response.data))
     }).catch((error) => {
         console.log(error.message)
     }).finally(() => {
